@@ -13,8 +13,7 @@ function ProductModal({ product, onClose, soldTickets }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (selectedTicket !== null) {
-      const message = `Hola, me interesa el boleto número ${selectedTicket} para la rifa de *${product.name}*.
-       Mis datos son: *Nombre*: ${name}, *Email*: ${email}, *Cédula*: ${cedula}`
+      const message = `Hola, me interesa el boleto número ${selectedTicket} para la rifa de *${product.name}*. Mis datos son: *Nombre*: ${name}, *Email*: ${email}, *Cédula*: ${cedula}`
       const whatsappUrl = `https://wa.me/59899129450?text=${encodeURIComponent(message)}`
       window.open(whatsappUrl, '_blank')
     }
