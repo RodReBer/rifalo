@@ -31,6 +31,10 @@ function Timer({ endTime }) {
     return parts.join(' ')
   }
 
+  if (timeLeft <= 0) {
+    return <div className="text-sm text-red-600 font-bold">¡Tiempo agotado!</div>
+  }
+
   return (
     <div className="text-sm text-gray-600">
       Tiempo restante: {formatTime(timeLeft)}

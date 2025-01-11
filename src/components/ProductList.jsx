@@ -9,14 +9,14 @@ const products = [
     price: 100, 
     totalTickets: 300, 
     image: 'https://placehold.co/200x200?text=PS5',
-    endTime: Date.now() + 3 * 24 * 60 * 60 * 1000, // 3 días desde ahora
+    endTime: new Date('2025-01-15T23:59:59').getTime(),
     description: 'La PlayStation 5 es la última consola de Sony, ofreciendo gráficos de última generación y tiempos de carga ultrarrápidos.',
     images: [
       'https://placehold.co/400x300?text=PS5-1',
       'https://placehold.co/400x300?text=PS5-2',
       'https://placehold.co/400x300?text=PS5-3'
     ],
-    soldTickets: [1, 5, 10, 15, 20] // Ejemplo de boletos ya vendidos
+    soldTickets: [1, 5, 10, 15, 20]
   },
   { 
     id: 2, 
@@ -24,14 +24,14 @@ const products = [
     price: 50, 
     totalTickets: 500, 
     image: 'https://placehold.co/200x200?text=Switch',
-    endTime: Date.now() + 30 * 24 * 60 * 60 * 1000, // 1 mes desde ahora
+    endTime: new Date('2025-06-15T23:59:59').getTime(),
     description: 'La Nintendo Switch es una consola híbrida que te permite jugar en casa o en movimiento, con una amplia biblioteca de juegos exclusivos.',
     images: [
       'https://placehold.co/400x300?text=Switch-1',
       'https://placehold.co/400x300?text=Switch-2',
       'https://placehold.co/400x300?text=Switch-3'
     ],
-    soldTickets: [2, 7, 12, 17, 22] // Ejemplo de boletos ya vendidos
+    soldTickets: [2, 7, 12, 17, 22]
   },
   { 
     id: 3, 
@@ -39,14 +39,14 @@ const products = [
     price: 80, 
     totalTickets: 1000, 
     image: 'https://placehold.co/200x200?text=Xbox',
-    endTime: Date.now() + 7 * 24 * 60 * 60 * 1000, // 1 semana desde ahora
+    endTime: new Date('2025-07-01T23:59:59').getTime(),
     description: 'La Xbox Series X es la consola más potente de Microsoft, ofreciendo juegos en 4K y una experiencia de juego fluida y rápida.',
     images: [
       'https://placehold.co/400x300?text=Xbox-1',
       'https://placehold.co/400x300?text=Xbox-2',
       'https://placehold.co/400x300?text=Xbox-3'
     ],
-    soldTickets: [3, 8, 13, 18, 23] // Ejemplo de boletos ya vendidos
+    soldTickets: [3, 8, 13, 18, 23]
   },
 ]
 
