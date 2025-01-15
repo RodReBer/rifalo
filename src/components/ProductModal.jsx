@@ -29,7 +29,7 @@ function ProductModal({ product, onClose, soldTickets }) {
       buttons.push(
         <button
           key={i}
-          className={`p-1 text-xs rounded ${
+          className={`p-1 text-xs rounded flex justify-center ${
             soldTickets.includes(i)
               ? 'bg-red-300 cursor-not-allowed'
               : i === selectedTicket
@@ -85,7 +85,7 @@ function ProductModal({ product, onClose, soldTickets }) {
               <img 
                 src={product.images[currentImageIndex]} 
                 alt={`${product.name} - imagen ${currentImageIndex + 1}`} 
-                className="w-full h-64 object-cover rounded-lg"
+                className=" h-64 object-cover rounded-lg mx-auto"
               />
               <button 
                 onClick={prevImage} 

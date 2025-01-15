@@ -3,25 +3,25 @@ import React from 'react'
 export default function Ganadores() {
   const ganadores = [
     { 
-      nombre: 'Ana Rodríguez', 
+      nombre: 'Desconocido', 
       premio: 'PlayStation 5', 
       fecha: '15/04/2025',
-      boleto: '201',
-      imagen: 'https://placehold.co/300x300?text=Ana'
+      boleto: '???',
+      imagen: 'https://placehold.co/300x300?text=Desconocido'
     },
     { 
-      nombre: 'Carlos Garcia', 
-      premio: 'Nintendo Switch', 
+      nombre: 'Desconocido', 
+      premio: 'Baccio classic 125cc', 
       fecha: '20/03/2025',
-      boleto: '089',
-      imagen: 'https://placehold.co/300x300?text=Carlos'
+      boleto: '???',
+      imagen: 'https://placehold.co/300x300?text=Desconocido'
     },
     { 
-      nombre: 'Laura Martínez', 
+      nombre: 'Desconocido', 
       premio: 'Xbox Series X', 
       fecha: '10/02/2025',
-      boleto: '456',
-      imagen: 'https://placehold.co/300x300?text=Laura'
+      boleto: '???',
+      imagen: 'https://placehold.co/300x300?text=Desconocido'
     },
   ]
 
