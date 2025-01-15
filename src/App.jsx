@@ -6,12 +6,14 @@ import ProductList from './components/ProductList'
 import TerminosCondiciones from './components/TerminosCondiciones'
 import Ganadores from './components/Ganadores'
 import MediosPago from './components/MediosPago'
+import ScrollToTop from './components/ScrollToTop'
 
 export default function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-100">
         <Navbar />
+        <ScrollToTop />
         <main className="container mx-auto p-4 min-h-screen">
           <Routes>
             <Route path="/" element={<ProductList />} />
