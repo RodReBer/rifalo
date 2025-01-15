@@ -9,7 +9,7 @@ const products = [
     price: 100, 
     totalTickets: 300, 
     image: 'https://placehold.co/200x200?text=PS5',
-    endTime: new Date('2025-01-15T23:59:59').getTime(),
+    endTime: new Date('2025-05-20T23:59:59').getTime(),
     description: 'La PlayStation 5 es la última consola de Sony, ofreciendo gráficos de última generación y tiempos de carga ultrarrápidos.',
     images: [
       'https://placehold.co/400x300?text=PS5-1',
@@ -50,7 +50,7 @@ const products = [
   },
 ]
 
-function ProductList() {
+export default function ProductList() {
   const [selectedProduct, setSelectedProduct] = useState(null)
 
   const handleProductClick = (product) => {
@@ -81,6 +81,4 @@ function ProductList() {
     </div>
   )
 }
-
-export default ProductList
 

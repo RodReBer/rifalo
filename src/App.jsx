@@ -1,18 +1,28 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import ProductList from './components/ProductList'
+import TerminosCondiciones from './components/TerminosCondiciones'
+import Ganadores from './components/Ganadores'
+import MediosPago from './components/MediosPago'
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-blue-600 text-white p-4">
-        <h1 className="text-3xl font-bold text-center">Rifas Disponibles</h1>
-      </header>
-      <main className="container mx-auto p-4">
-        <ProductList />
-      </main>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        <Navbar />
+        <main className="container mx-auto p-4 min-h-screen">
+          <Routes>
+            <Route path="/" element={<ProductList />} />
+            <Route path="/terminos" element={<TerminosCondiciones />} />
+            <Route path="/ganadores" element={<Ganadores />} />
+            <Route path="/pagos" element={<MediosPago />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   )
 }
-
-export default App
 
