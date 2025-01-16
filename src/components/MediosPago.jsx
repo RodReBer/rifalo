@@ -63,15 +63,15 @@ export default function MediosPago() {
                         <div className="bg-blue-50 p-6 rounded-lg">
                             <h4 className="text-lg font-semibold text-blue-700 mb-4">Depósito o Transferencia Bancaria</h4>
                             <p className="text-gray-600 mb-2"><span className="font-medium">Banco:</span> BROU</p>
-                            <p className="text-gray-600 mb-2"><span className="font-medium">Titular:</span> RIFALO S.A.</p>
+                            <p className="text-gray-600 mb-2"><span className="font-medium">Titular:</span> Rodrigo Rey</p>
                             <p className="text-gray-600 mb-2"><span className="font-medium">Cuenta:</span> 123-456789-00</p>
-                            <p className="text-gray-600 mb-2"><span className="font-medium">Cédula:</span> 1.234.567-8</p>
+                            <p className="text-gray-600 mb-2"><span className="font-medium">Cédula:</span> 5.317.233-3</p>
                         </div>
                         <div className="bg-green-50 p-6 rounded-lg">
                             <h4 className="text-lg font-semibold text-green-700 mb-4">Pago en Efectivo</h4>
                             <p className="text-gray-600 mb-4">Puedes realizar tu pago en efectivo en cualquier local de RedPagos o Abitab.</p>
                             <p className="text-gray-600">Indica el siguiente código al momento de pagar:</p>
-                            <p className="text-3xl font-bold text-green-600 mt-2">RIFALO2024</p>
+                            <p className="text-3xl font-bold text-green-600 mt-2">RIFALO2025</p>
                         </div>
                     </div>
                     <div className="mt-8 text-center bg-yellow-50 p-4 rounded-lg">

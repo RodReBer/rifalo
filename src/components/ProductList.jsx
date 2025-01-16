@@ -34,8 +34,8 @@ const products = [
   { 
     id: 2, 
     name: 'Baccio classic 125cc', 
-    price: 50, 
-    totalTickets: 500, 
+    price: 200, 
+    totalTickets: 475, 
     image: baccio1,
     endTime: new Date('2025-06-15T23:59:59').getTime(),
     description: 'La Baccio Classic 125cc es una moto elegante y eficiente, perfecta para la ciudad.',
@@ -47,7 +47,7 @@ const products = [
       baccio5,
       baccio6
     ],
-    soldTickets: [2, 7, 12, 17, 22]
+    soldTickets: [2, 7, 12, 22, 222, 345, 400, 460, 143, 178 ]
   },
   { 
     id: 3, 
