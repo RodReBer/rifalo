@@ -7,6 +7,8 @@ import TerminosCondiciones from './components/TerminosCondiciones'
 import Ganadores from './components/Ganadores'
 import MediosPago from './components/MediosPago'
 import ScrollToTop from './components/ScrollToTop'
+import WhatsAppButton from './components/WhatsAppButton'
+
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <WhatsAppButton />
+
       </div>
     </Router>
   )
