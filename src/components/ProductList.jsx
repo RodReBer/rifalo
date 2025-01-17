@@ -34,7 +34,7 @@ const products = [
   { 
     id: 2, 
     name: 'Baccio classic 125cc', 
-    price: 200, 
+    price: 345, 
     totalTickets: 475, 
     image: baccio1,
     endTime: new Date('2025-06-15T23:59:59').getTime(),
