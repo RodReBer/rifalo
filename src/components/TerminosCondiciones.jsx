@@ -1,63 +1,90 @@
 import React from 'react'
+import { Users, Gift, ShieldCheck, AlertTriangle, HelpCircle, Scale } from 'lucide-react'
 
 const terminos = [
   {
     name: 'Participación',
-    imageSrc: 'https://placehold.co/64x64?text=P',
+    icon: Users,
     description: 'La participación en las rifas está sujeta a estos términos y condiciones. Los participantes deben ser mayores de 18 años.',
   },
   {
     name: 'Premios',
-    imageSrc: 'https://placehold.co/64x64?text=P',
+    icon: Gift,
     description: 'Los premios no son transferibles ni canjeables por dinero en efectivo. La compra de un boleto no garantiza la victoria.',
   },
   {
     name: 'Datos personales',
-    imageSrc: 'https://placehold.co/64x64?text=D',
+    icon: ShieldCheck,
     description: 'Al participar, los usuarios aceptan que sus datos sean utilizados para contactarlos en caso de resultar ganadores.',
+  },
+  {
+    name: 'Modificaciones',
+    icon: AlertTriangle,
+    description: 'RIFALO se reserva el derecho de modificar o cancelar cualquier rifa en cualquier momento.',
+  },
+  {
+    name: 'Notificaciones',
+    icon: HelpCircle,
+    description: 'Los ganadores serán notificados a través de los datos de contacto proporcionados al momento de la compra del boleto.',
+  },
+  {
+    name: 'Responsabilidad',
+    icon: Scale,
+    description: 'RIFALO no se hace responsable por errores en la información proporcionada por los participantes.',
   },
 ]
 
 export default function TerminosCondiciones() {
   return (
-    <div className="bg-gray-50">
-      <div className="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 lg:px-4">
-        <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
-          <div className="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
-            <div>
-              <h2 className="text-4xl font-bold tracking-tight text-gray-900">
-                Términos y Condiciones de RIFALO
-              </h2>
-              <p className="mt-4 text-gray-500">
-                En RIFALO, nos comprometemos a ofrecer una experiencia de rifa justa y transparente. 
-                Nuestros términos y condiciones están diseñados para proteger tanto a los participantes 
-                como a nuestra organización, asegurando un proceso claro y equitativo para todos.
-              </p>
-            </div>
-            <img
-              alt="Imagen representativa de términos y condiciones"
-              src="https://placehold.co/600x400?text=Términos+y+Condiciones"
-              className="aspect-[3/2] w-full rounded-lg bg-gray-100 object-cover"
-            />
-          </div>
-          <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
-            {terminos.map((termino) => (
-              <div key={termino.name} className="sm:flex lg:block">
-                <div className="sm:shrink-0">
-                  <img alt="" src={termino.imageSrc || "/placeholder.svg"} className="size-16" />
+    <div className="bg-gradient-to-b from-blue-50 to-white py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+            Términos y Condiciones de RIFALO
+          </h2>
+          <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
+            En RIFALO, nos comprometemos a ofrecer una experiencia de rifa justa y transparente. 
+            Nuestros términos y condiciones están diseñados para proteger tanto a los participantes 
+            como a nuestra organización, asegurando un proceso claro y equitativo para todos.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {terminos.map((termino) => (
+            <div 
+              key={termino.name} 
+              className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-center w-12 h-12 rounded-md bg-blue-500 text-white mb-4">
+                  <termino.icon className="w-6 h-6" />
                 </div>
-                <div className="mt-4 sm:ml-6 sm:mt-0 lg:ml-0 lg:mt-6">
-                  <h3 className="text-sm font-medium text-gray-900">{termino.name}</h3>
-                  <p className="mt-2 text-sm text-gray-500">{termino.description}</p>
-                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">{termino.name}</h3>
+                <p className="text-gray-500 text-sm">{termino.description}</p>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 bg-white shadow-xl rounded-lg overflow-hidden">
+          <div className="px-6 py-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Información Adicional</h3>
+            <ul className="list-disc pl-5 space-y-2 text-gray-600">
+              <li>Todas las rifas están sujetas a la legislación vigente en Uruguay.</li>
+              <li>Los participantes deben proporcionar información precisa y actualizada.</li>
+              <li>RIFALO se reserva el derecho de descalificar a cualquier participante que viole estos términos y condiciones.</li>
+              <li>En caso de disputas, la decisión de RIFALO será final y vinculante.</li>
+            </ul>
           </div>
-          <div className="mt-16 text-sm text-gray-500">
-            <p>RIFALO se reserva el derecho de modificar o cancelar cualquier rifa en cualquier momento.</p>
-            <p className="mt-2">Los ganadores serán notificados a través de los datos de contacto proporcionados al momento de la compra del boleto.</p>
-            <p className="mt-2">RIFALO no se hace responsable por errores en la información proporcionada por los participantes.</p>
-          </div>
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-gray-500 text-sm">
+            Al participar en cualquier rifa de RIFALO, usted acepta estos términos y condiciones en su totalidad.
+          </p>
+          <p className="mt-2 text-gray-500 text-sm">
+            Si tiene alguna pregunta, no dude en <a href="#" className="text-blue-500 hover:underline">contactarnos</a>.
+          </p>
         </div>
       </div>
     </div>

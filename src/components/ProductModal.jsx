@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Timer from './Timer'
 
 function ProductModal({ product, onClose, soldTickets }) {
@@ -8,7 +8,27 @@ function ProductModal({ product, onClose, soldTickets }) {
   const [cedula, setCedula] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isTimeExpired, setIsTimeExpired] = useState(false)
   const ticketsPerPage = 100
+
+  // Verifica si el tiempo ha expirado
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      const remainingTime = calculateTimeLeft(product.endTime)
+      if (remainingTime <= 0) {
+        setIsTimeExpired(true)
+        clearInterval(timerInterval)
+      }
+    }, 1000)
+
+    return () => clearInterval(timerInterval) // Limpiar el intervalo
+  }, [product.endTime])
+
+  function calculateTimeLeft(targetTime) {
+    const endTimeInMs = targetTime.seconds * 1000 + targetTime.nanoseconds / 1000000
+    const difference = endTimeInMs - Date.now()
+    return Math.max(0, Math.floor(difference / 1000)) // Retorna tiempo restante en segundos
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -29,15 +49,17 @@ function ProductModal({ product, onClose, soldTickets }) {
       buttons.push(
         <button
           key={i}
-          className={`p-1 text-xs rounded flex justify-center ${
+          className={`p-1 text-xs rounded ${
             soldTickets.includes(i)
               ? 'bg-red-300 cursor-not-allowed'
+              : isTimeExpired
+              ? 'bg-green-100 cursor-not-allowed'
               : i === selectedTicket
               ? 'bg-blue-600 text-white'
               : 'bg-green-100 hover:bg-blue-100'
           }`}
-          onClick={() => setSelectedTicket(i)}
-          disabled={soldTickets.includes(i)}
+          onClick={() => !isTimeExpired && !soldTickets.includes(i) && setSelectedTicket(i)}
+          disabled={isTimeExpired || soldTickets.includes(i)}
         >
           {i}
         </button>
@@ -45,15 +67,16 @@ function ProductModal({ product, onClose, soldTickets }) {
     }
     return buttons
   }
+  
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => 
+    setCurrentImageIndex((prevIndex) =>
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
     )
   }
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => 
+    setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
     )
   }
@@ -83,9 +106,9 @@ function ProductModal({ product, onClose, soldTickets }) {
             {/* Image Slider */}
             <div className="relative">
               <img 
-                src={product.images[currentImageIndex]} 
+                src={product.images[currentImageIndex] || "/placeholder.svg"} 
                 alt={`${product.name} - imagen ${currentImageIndex + 1}`} 
-                className=" h-64 object-cover rounded-lg mx-auto"
+                className="w-full h-64 object-cover rounded-lg"
               />
               <button 
                 onClick={prevImage} 
@@ -103,7 +126,7 @@ function ProductModal({ product, onClose, soldTickets }) {
 
             <p className="text-gray-600">{product.description}</p>
             
-            <p className="text-gray-600 font-bold">Precio del boleto: ${product.price}</p>
+            <p className="text-gray-600 font-bold">Precio del boleto: ${product.ticketPrice}</p>
             
             <Timer endTime={product.endTime} />
           </div>
@@ -141,6 +164,7 @@ function ProductModal({ product, onClose, soldTickets }) {
                 onChange={(e) => setName(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded text-sm"
                 required
+                disabled={isTimeExpired}
               />
               <input
                 type="email"
@@ -149,6 +173,7 @@ function ProductModal({ product, onClose, soldTickets }) {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded text-sm"
                 required
+                disabled={isTimeExpired}
               />
               <input
                 type="text"
@@ -158,6 +183,7 @@ function ProductModal({ product, onClose, soldTickets }) {
                 className="w-full p-2 border border-gray-300 rounded text-sm"
                 required
                 maxLength="11"
+                disabled={isTimeExpired}
               />
               <div className="flex justify-end space-x-2">
                 <button
@@ -170,7 +196,7 @@ function ProductModal({ product, onClose, soldTickets }) {
                 <button
                   type="submit"
                   className="px-4 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
-                  disabled={selectedTicket === null}
+                  disabled={selectedTicket === null || isTimeExpired}
                 >
                   Enviar por WhatsApp
                 </button>
@@ -184,4 +210,3 @@ function ProductModal({ product, onClose, soldTickets }) {
 }
 
 export default ProductModal
-

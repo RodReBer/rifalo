@@ -3,21 +3,21 @@ import React from 'react'
 export default function Ganadores() {
   const ganadores = [
     { 
-      nombre: 'Desconocido', 
+      nombre: 'Desconocido1', 
       premio: 'PlayStation 5', 
       fecha: '15/04/2025',
       boleto: '???',
       imagen: 'https://placehold.co/300x300?text=Desconocido'
     },
     { 
-      nombre: 'Desconocido', 
+      nombre: 'Desconocido2', 
       premio: 'Baccio classic 125cc', 
       fecha: '20/03/2025',
       boleto: '???',
       imagen: 'https://placehold.co/300x300?text=Desconocido'
     },
     { 
-      nombre: 'Desconocido', 
+      nombre: 'Desconocido3', 
       premio: 'Xbox Series X', 
       fecha: '10/02/2025',
       boleto: '???',

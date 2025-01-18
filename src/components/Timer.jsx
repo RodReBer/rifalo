@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
 
 function Timer({ endTime }) {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(endTime))
 
-  function calculateTimeLeft() {
-    const difference = endTime - Date.now()
-    return Math.max(0, Math.floor(difference / 1000))
+  function calculateTimeLeft(targetTime) {
+    // Convierte el timestamp de Firebase a milisegundos
+    const endTimeInMs = targetTime.seconds * 1000 + targetTime.nanoseconds / 1000000
+    const difference = endTimeInMs - Date.now()
+    return Math.max(0, Math.floor(difference / 1000)) // Devuelve tiempo restante en segundos
   }
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft())
+      setTimeLeft(calculateTimeLeft(endTime)) // Calcula tiempo restante en cada tick
     }, 1000)
 
-    return () => clearInterval(timer)
+    return () => clearInterval(timer) // Limpia el intervalo al desmontar el componente
   }, [endTime])
 
   function formatTime(time) {
@@ -43,4 +45,3 @@ function Timer({ endTime }) {
 }
 
 export default Timer
-
