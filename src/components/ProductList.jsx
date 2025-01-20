@@ -5,7 +5,7 @@ import Loader from './Loader';
 import { useProducts } from '../contexts/productContext';
 import { Gift, Ticket, Trophy } from 'lucide-react';
 
-export default function ProductList() {
+const ProductList=()=> {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { products, loading, error } = useProducts();
 
@@ -43,14 +43,14 @@ export default function ProductList() {
             Rifas Exclusivas
           </h1>
           <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Participa en nuestras rifas y gana increíbles premios. ¡Tu suerte te espera!
+            Participa en nuestras rifas y gana incre&iacute;bles premios. ¡Tu suerte te espera!
           </p>
         </div>
 
         <div className="bg-white shadow-xl rounded-lg overflow-hidden mb-16">
           <div className="px-4 py-5 sm:p-6">
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-              ¿Cómo funciona?
+              ¿C&oacute;mo funciona?
             </h3>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden shadow-lg rounded-lg transition-transform duration-300 hover:scale-105">
@@ -61,7 +61,7 @@ export default function ProductList() {
                     Elige tu rifa
                   </dd>
                   <p className="text-sm text-gray-600">
-                    Explora nuestra selección de increíbles premios
+                    Explora nuestra selecci&oacute;n de incre&iacute;bles premios
                   </p>
                 </div>
               </div>
@@ -73,7 +73,7 @@ export default function ProductList() {
                     Compra tu boleto
                   </dd>
                   <p className="text-sm text-gray-600">
-                    Selecciona tus números de la suerte y realiza el pago
+                    Selecciona tus n&uacute;meros de la suerte y realiza el pago
                   </p>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function ProductList() {
                     ¡Gana premios!
                   </dd>
                   <p className="text-sm text-gray-600">
-                    Espera el sorteo y prepárate para ganar
+                    Espera el sorteo y prep&aacute;rate para ganar
                   </p>
                 </div>
               </div>
@@ -118,3 +118,5 @@ export default function ProductList() {
     </div>
   );
 }
+
+export default ProductList;

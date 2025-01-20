@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-export default function Navbar() {
+const Navbar=()=> {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
 
@@ -85,3 +85,4 @@ export default function Navbar() {
   )
 }
 
+export default Navbar

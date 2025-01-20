@@ -8,6 +8,7 @@ import Ganadores from './components/Ganadores'
 import MediosPago from './components/MediosPago'
 import ScrollToTop from './components/ScrollToTop'
 import WhatsAppButton from './components/WhatsAppButton'
+import GeneratorPdf from './components/GeneratorPdf'
 import { ProductProvider } from './contexts/productContext'
 
 // Import the functions you need from the SDKs you need
@@ -47,6 +48,7 @@ export default function App() {
               <Route path="/terminos" element={<TerminosCondiciones />} />
               <Route path="/ganadores" element={<Ganadores />} />
               <Route path="/pagos" element={<MediosPago />} />
+              <Route path="/generatorpdf" element={<GeneratorPdf />} />
             </Routes>
           </main>
           <Footer />

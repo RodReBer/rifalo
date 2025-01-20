@@ -1,45 +1,63 @@
 import React, { useState, useEffect } from 'react'
 
-function Timer({ endTime }) {
-  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(endTime))
-
-  function calculateTimeLeft(targetTime) {
-    // Convierte el timestamp de Firebase a milisegundos
-    const endTimeInMs = targetTime.seconds * 1000 + targetTime.nanoseconds / 1000000
-    const difference = endTimeInMs - Date.now()
-    return Math.max(0, Math.floor(difference / 1000)) // Devuelve tiempo restante en segundos
-  }
+const Timer = ({ endTime }) => {
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endTime))
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(endTime)) // Calcula tiempo restante en cada tick
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(endTime))
     }, 1000)
 
-    return () => clearInterval(timer) // Limpia el intervalo al desmontar el componente
+    return () => clearInterval(interval)
   }, [endTime])
 
-  function formatTime(time) {
-    const days = Math.floor(time / (3600 * 24))
-    const hours = Math.floor((time % (3600 * 24)) / 3600)
-    const minutes = Math.floor((time % 3600) / 60)
-    const seconds = time % 60
-
-    const parts = []
-    if (days > 0) parts.push(`${days}d`)
-    if (hours > 0 || days > 0) parts.push(`${hours.toString().padStart(2, '0')}h`)
-    parts.push(`${minutes.toString().padStart(2, '0')}m`)
-    parts.push(`${seconds.toString().padStart(2, '0')}s`)
-
-    return parts.join(' ')
+  function calculateTimeLeft(targetTime) {
+    const endTimeInMs = targetTime.seconds * 1000 + targetTime.nanoseconds / 1000000
+    const difference = endTimeInMs - Date.now()
+    return Math.max(0, Math.floor(difference / 1000)) // Retorna el tiempo restante en segundos
   }
 
-  if (timeLeft <= 0) {
-    return <div className="text-sm text-red-600 font-bold">¡Tiempo agotado!</div>
+  // Formatear tiempo restante en días, horas, minutos y segundos
+  const days = Math.floor(timeLeft / (60 * 60 * 24))
+  const hours = Math.floor((timeLeft % (60 * 60 * 24)) / (60 * 60))
+  const minutes = Math.floor((timeLeft % (60 * 60)) / 60)
+  const seconds = timeLeft % 60
+
+  // Función para generar el tiempo con singular/plural adecuado
+  const formatTime = (value, singular, plural) => {
+    if (value === 1) {
+      return `${value} ${singular}`
+    } else if (value > 1) {
+      return `${value} ${plural}`
+    }
+    return ''
   }
+
+  // Crear el string del tiempo restante
+  let timeStrings = []
+  if (days > 0) timeStrings.push(formatTime(days, 'día', 'días'))
+  if (hours > 0) timeStrings.push(formatTime(hours, 'hora', 'horas'))
+  if (minutes > 0) timeStrings.push(formatTime(minutes, 'minuto', 'minutos'))
+  if (seconds > 0) timeStrings.push(formatTime(seconds, 'segundo', 'segundos'))
+
+  // Decidir si usar "falta" o "faltan" al principio
+  let timeString = ''
+  if (timeStrings.length > 0) {
+    const firstUnit = timeStrings[0]
+    const plural = firstUnit.includes('s') ? 'Faltan' : 'Falta'
+    timeString = `${plural} ${timeStrings.join(', ')}`
+  } else {
+    timeString = 'Tiempo finalizado'
+  }
+
+  // Verificar si el tiempo restante es de una semana o menos
+  const isLessThanWeek = days <= 7
 
   return (
-    <div className="text-sm text-gray-600">
-      Tiempo restante: {formatTime(timeLeft)}
+    <div>
+      <p className={`text-gray-600 ${isLessThanWeek ? 'text-red-600 font-semibold' : ''}`}>
+        {timeString}
+      </p>
     </div>
   )
 }

@@ -34,8 +34,9 @@ const terminos = [
   },
 ]
 
-export default function TerminosCondiciones() {
+const TerminosCondiciones=()=> {
   return (
+
     <div className="bg-gradient-to-b from-blue-50 to-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -44,8 +45,8 @@ export default function TerminosCondiciones() {
           </h2>
           <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
             En RIFALO, nos comprometemos a ofrecer una experiencia de rifa justa y transparente. 
-            Nuestros términos y condiciones están diseñados para proteger tanto a los participantes 
-            como a nuestra organización, asegurando un proceso claro y equitativo para todos.
+            Nuestros t&eacute;rminos y condiciones están diseñados para proteger tanto a los participantes 
+            como a nuestra organizaci&oacute;n, asegurando un proceso claro y equitativo para todos.
           </p>
         </div>
 
@@ -70,24 +71,26 @@ export default function TerminosCondiciones() {
           <div className="px-6 py-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Información Adicional</h3>
             <ul className="list-disc pl-5 space-y-2 text-gray-600">
-              <li>Todas las rifas están sujetas a la legislación vigente en Uruguay.</li>
-              <li>Los participantes deben proporcionar información precisa y actualizada.</li>
-              <li>RIFALO se reserva el derecho de descalificar a cualquier participante que viole estos términos y condiciones.</li>
-              <li>En caso de disputas, la decisión de RIFALO será final y vinculante.</li>
+              <li>Todas las rifas est&aacute;n sujetas a la legislaci&oacute;n vigente en Uruguay.</li>
+              <li>Los participantes deben proporcionar informaci&oacute;n precisa y actualizada.</li>
+              <li>RIFALO se reserva el derecho de descalificar a cualquier participante que viole estos t&eacute;rminos y condiciones.</li>
+              <li>En caso de disputas, la decisi&oacute;n de RIFALO ser&aacute; final y vinculante.</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 text-center">
           <p className="text-gray-500 text-sm">
-            Al participar en cualquier rifa de RIFALO, usted acepta estos términos y condiciones en su totalidad.
+            Al participar en cualquier rifa de RIFALO, usted acepta estos t&eacute;rminos y condiciones en su totalidad.
           </p>
           <p className="mt-2 text-gray-500 text-sm">
             Si tiene alguna pregunta, no dude en <a href="#" className="text-blue-500 hover:underline">contactarnos</a>.
           </p>
         </div>
+
       </div>
     </div>
   )
 }
 
+export default TerminosCondiciones

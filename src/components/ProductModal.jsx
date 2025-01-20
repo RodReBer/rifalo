@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Timer from './Timer'
 
-function ProductModal({ product, onClose, soldTickets }) {
+const ProductModal=({ product, onClose, soldTickets })=> {
   const [selectedTicket, setSelectedTicket] = useState(null)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -133,7 +133,7 @@ function ProductModal({ product, onClose, soldTickets }) {
 
           {/* Right side: Ticket selection and purchase form */}
           <div className="md:w-1/2 space-y-4">
-            <p className="text-gray-600 mb-2">Selecciona un número de boleto:</p>
+            <p className="text-gray-600 mb-2">Selecciona un n&uacute;mero de boleto:</p>
             <div className="grid grid-cols-10 gap-1 mb-4">
               {renderTicketButtons()}
             </div>
