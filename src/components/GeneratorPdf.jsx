@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { PDFDownloadLink, Document, Page, Text, View, Image, StyleSheet, Font } from "@react-pdf/renderer"
 import { format } from "date-fns"
 import { es } from "date-fns/locale"
-import { CheckCircle, User, CreditCard, Mail, Ticket, Calendar } from "lucide-react"
+import { CheckCircle, User, CreditCard, Mail, Ticket, Calendar, Lock } from "lucide-react"
 
 // Registrar la fuente
 Font.register({
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: "#000000",
+    backgroundColor: "#4F46E5",
     padding: 20,
     borderRadius: 10,
   },
@@ -98,7 +98,7 @@ const PDFDocument = ({ data }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
-        <Image style={styles.logo} src="/icons/rr-blanca.png" />
+        <Image style={styles.logo} src="/logo.png" />
         <Text style={styles.title}>Comprobante de Rifa</Text>
       </View>
 
@@ -145,7 +145,68 @@ const PDFDocument = ({ data }) => (
   </Document>
 )
 
+const LoginModal = ({ onLogin }) => {
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    if (username === "admin" && password === "password123") {
+      onLogin()
+    } else {
+      setError("Usuario o contraseña incorrectos")
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+      <div className="bg-white p-8 rounded-lg shadow-xl w-96">
+        <h2 className="text-2xl font-bold mb-6 text-indigo-600 text-center">Iniciar Sesión</h2>
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              <User className="inline-block w-5 h-5 mr-2 text-indigo-500" />
+              Usuario
+            </label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-150 ease-in-out"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <Lock className="inline-block w-5 h-5 mr-2 text-indigo-500" />
+              Contraseña
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-150 ease-in-out"
+              required
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <button
+            type="submit"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+          >
+            Iniciar Sesión
+          </button>
+        </form>
+      </div>
+    </div>
+  )
+}
+
 const RifaVerificationForm = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const {
     register,
     handleSubmit,
@@ -155,6 +216,14 @@ const RifaVerificationForm = () => {
 
   const onSubmit = (data) => {
     setFormData(data)
+  }
+
+  const handleLogin = () => {
+    setIsAuthenticated(true)
+  }
+
+  if (!isAuthenticated) {
+    return <LoginModal onLogin={handleLogin} />
   }
 
   return (
