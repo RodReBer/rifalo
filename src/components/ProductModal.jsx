@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { initMercadoPago } from "@mercadopago/sdk-react";
 
-initMercadoPago(import.meta.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY);
+initMercadoPago(process.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY);
 
 const ProductModal = ({ product, onClose, soldTickets }) => {
   const [selectedTickets, setSelectedTickets] = useState([]);
@@ -83,9 +83,9 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
       };
 
       const emailData = {
-        service_id: import.meta.env.REACT_APP_EMAILJS_SERVICE_ID,
-        template_id: import.meta.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-        user_id: import.meta.env.REACT_APP_EMAILJS_USER_ID,
+        service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        user_id: process.env.REACT_APP_EMAILJS_USER_ID,
         template_params: templateParams,
       };
 
@@ -150,7 +150,7 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.REACT_APP_MERCADOPAGO_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.REACT_APP_MERCADOPAGO_ACCESS_TOKEN}`,
         },
         body: JSON.stringify(preference),
       });
