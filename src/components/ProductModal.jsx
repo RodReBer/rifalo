@@ -159,8 +159,7 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
       const data = await response.json()
   
       if (data.id) {
-        window.open(data.init_point, "_blank")
-        
+        window.location.href = data.init_point;        
         // Enviar correo después de abrir la ventana de pago
         const ticketNumbers = selectedTickets.join(", ")
         const emailSent = await sendConfirmationEmail(ticketNumbers)
