@@ -14,6 +14,7 @@
     "@mercadopago/sdk-react": "^0.0.23",
     "@react-pdf/renderer": "^4.1.6",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
     "firebase": "^11.2.0",
     "lucide-react": "^0.471.1",
     "mercadopago": "^2.3.0",

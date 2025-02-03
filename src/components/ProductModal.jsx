@@ -1,53 +1,52 @@
+import { useState, useEffect } from "react";
+import Timer from "./Timer";
+import { X } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { initMercadoPago } from "@mercadopago/sdk-react";
 
-import { useState, useEffect } from "react"
-import Timer from "./Timer"
-import { X } from "lucide-react"
-import emailjs from "@emailjs/browser"
-import { initMercadoPago } from "@mercadopago/sdk-react"
-
-initMercadoPago("APP_USR-5955b944-5718-4ea5-ac2b-976d189985d3")
+initMercadoPago(import.meta.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY);
 
 const ProductModal = ({ product, onClose, soldTickets }) => {
-  const [selectedTickets, setSelectedTickets] = useState([])
-  const [name, setName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [phone, setPhone] = useState("")
-  const [cedula, setCedula] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isTimeExpired, setIsTimeExpired] = useState(false)
-  const [paymentMethod, setPaymentMethod] = useState("")
-  const [termsAccepted, setTermsAccepted] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-  const [email, setEmail] = useState("")
-  const [modalMessage, setModalMessage] = useState("")
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [preferenceId, setPreferenceId] = useState(null)
-  const [isFormComplete, setIsFormComplete] = useState(false)
-  const [showMercadoPagoButton, setShowMercadoPagoButton] = useState(false)
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
-  const ticketsPerPage = 100
+  const [selectedTickets, setSelectedTickets] = useState([]);
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [cedula, setCedula] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTimeExpired, setIsTimeExpired] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [email, setEmail] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [preferenceId, setPreferenceId] = useState(null);
+  const [isFormComplete, setIsFormComplete] = useState(false);
+  const [showMercadoPagoButton, setShowMercadoPagoButton] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const ticketsPerPage = 100;
 
   const openModal = (message) => {
-    setModalMessage(message)
-    setIsModalOpen(true)
-  }
+    setModalMessage(message);
+    setIsModalOpen(true);
+  };
 
   const closeModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
-      const remainingTime = calculateTimeLeft(product.endTime)
+      const remainingTime = calculateTimeLeft(product.endTime);
       if (remainingTime <= 0) {
-        setIsTimeExpired(true)
-        clearInterval(timerInterval)
+        setIsTimeExpired(true);
+        clearInterval(timerInterval);
       }
-    }, 1000)
+    }, 1000);
 
-    return () => clearInterval(timerInterval)
-  }, [product.endTime])
+    return () => clearInterval(timerInterval);
+  }, [product.endTime]);
 
   useEffect(() => {
     const isComplete =
@@ -58,15 +57,15 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
       cedula.trim() !== "" &&
       email.trim() !== "" &&
       paymentMethod !== "" &&
-      termsAccepted
+      termsAccepted;
 
-    setIsFormComplete(isComplete)
-  }, [selectedTickets, name, lastName, phone, cedula, email, paymentMethod, termsAccepted])
+    setIsFormComplete(isComplete);
+  }, [selectedTickets, name, lastName, phone, cedula, email, paymentMethod, termsAccepted]);
 
   function calculateTimeLeft(targetTime) {
-    const endTimeInMs = targetTime.seconds * 1000 + targetTime.nanoseconds / 1000000
-    const difference = endTimeInMs - Date.now()
-    return Math.max(0, Math.floor(difference / 1000))
+    const endTimeInMs = targetTime.seconds * 1000 + targetTime.nanoseconds / 1000000;
+    const difference = endTimeInMs - Date.now();
+    return Math.max(0, Math.floor(difference / 1000));
   }
 
   const sendConfirmationEmail = async (ticketInfo) => {
@@ -81,50 +80,50 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
         tickets: ticketInfo,
         totalAmount: totalAmount,
         paymentMethod: paymentMethod,
-      }
+      };
 
       const emailData = {
-        service_id: "service_t97yvyk",
-        template_id: "template_0pej841",
-        user_id: "sOtAzxE_AU9RuD2AQ",
+        service_id: import.meta.env.REACT_APP_EMAILJS_SERVICE_ID,
+        template_id: import.meta.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        user_id: import.meta.env.REACT_APP_EMAILJS_USER_ID,
         template_params: templateParams,
-      }
+      };
 
       await emailjs.send(
         emailData.service_id,
         emailData.template_id,
         emailData.template_params,
-        emailData.user_id,
-      )
-      return true
+        emailData.user_id
+      );
+      return true;
     } catch (error) {
-      console.error("Error sending email:", error)
-      return false
+      console.error("Error sending email:", error);
+      return false;
     }
-  }
+  };
 
   const calculatePrice = (basePrice) => {
-    return paymentMethod === "mercadopago" ? basePrice * 1.1 : basePrice
-  }
+    return paymentMethod === "mercadopago" ? basePrice * 1.1 : basePrice;
+  };
 
   const handleMercadoPagoPayment = async (e) => {
     if (e) {
-      e.preventDefault()
-      e.stopPropagation()
+      e.preventDefault();
+      e.stopPropagation();
     }
-    
-    if (isProcessingPayment) return
-    setIsProcessingPayment(true)
-  
+
+    if (isProcessingPayment) return;
+    setIsProcessingPayment(true);
+
     try {
       if (!isFormComplete) {
-        openModal("Por favor, completa todos los campos del formulario antes de proceder al pago.")
-        return
+        openModal("Por favor, completa todos los campos del formulario antes de proceder al pago.");
+        return;
       }
-  
-      const unitPrice = calculatePrice(product.ticketPrice)
-      const totalAmount = selectedTickets.length * unitPrice
-  
+
+      const unitPrice = calculatePrice(product.ticketPrice);
+      const totalAmount = selectedTickets.length * unitPrice;
+
       const preference = {
         items: [
           {
@@ -145,59 +144,59 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
             number: cedula,
           },
         },
-      }
-  
+      };
+
       const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer APP_USR-4281791626434269-013116-6607947a5c31cb822e1977eb30cd57e6-200909974`,
+          Authorization: `Bearer ${import.meta.env.REACT_APP_MERCADOPAGO_ACCESS_TOKEN}`,
         },
         body: JSON.stringify(preference),
-      })
-  
-      const data = await response.json()
-  
+      });
+
+      const data = await response.json();
+
       if (data.id) {
-        window.open(data.init_point, "_blank")
-        
+        window.open(data.init_point, "_blank");
+
         // Enviar correo después de abrir la ventana de pago
-        const ticketNumbers = selectedTickets.join(", ")
-        const emailSent = await sendConfirmationEmail(ticketNumbers)
-        
+        const ticketNumbers = selectedTickets.join(", ");
+        const emailSent = await sendConfirmationEmail(ticketNumbers);
+
         if (emailSent) {
-          openModal("¡Proceso completado! Se ha enviado un correo de confirmación.")
+          openModal("¡Proceso completado! Se ha enviado un correo de confirmación.");
         } else {
-          openModal("Pago realizado pero hubo un error al enviar el correo de confirmación")
+          openModal("Pago realizado pero hubo un error al enviar el correo de confirmación");
         }
-        
+
         // Cerrar el modal principal después de 3 segundos
         setTimeout(() => {
-          onClose()
-        }, 3000)
+          onClose();
+        }, 3000);
       } else {
-        throw new Error("Failed to create preference")
+        throw new Error("Failed to create preference");
       }
     } catch (error) {
-      console.error("Error creating MercadoPago payment link:", error)
-      openModal("Hubo un error al generar el link de pago. Por favor, intenta nuevamente.")
+      console.error("Error creating MercadoPago payment link:", error);
+      openModal("Hubo un error al generar el link de pago. Por favor, intenta nuevamente.");
     } finally {
-      setIsProcessingPayment(false)
+      setIsProcessingPayment(false);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!isFormComplete) {
-      setShowAlert(true)
-      openModal("Por favor, completa todos los campos del formulario y acepta los términos y condiciones.")
-      return
+      setShowAlert(true);
+      openModal("Por favor, completa todos los campos del formulario y acepta los términos y condiciones.");
+      return;
     }
 
     if (selectedTickets.length > 0 && paymentMethod !== "mercadopago") {
-      const ticketNumbers = selectedTickets.join(", ")
-      const totalAmount = selectedTickets.length * calculatePrice(product.ticketPrice)
+      const ticketNumbers = selectedTickets.join(", ");
+      const totalAmount = selectedTickets.length * calculatePrice(product.ticketPrice);
 
       const message = `Hola, me interesan los boletos número ${ticketNumbers} para la rifa de *${product.name}*. 
 Mis datos son: 
@@ -207,47 +206,47 @@ Mis datos son:
 *Correo*: ${email}
 *Método de pago*: ${paymentMethod}
 
-*Total a pagar*: $${totalAmount.toFixed(2)}`
+*Total a pagar*: $${totalAmount.toFixed(2)}`;
 
-      const whatsappUrl = `https://wa.me/59899129450?text=${encodeURIComponent(message)}`
-      window.open(whatsappUrl, "_blank")
+      const whatsappUrl = `https://wa.me/59899129450?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, "_blank");
 
       try {
-        const emailSent = await sendConfirmationEmail(ticketNumbers)
+        const emailSent = await sendConfirmationEmail(ticketNumbers);
         if (emailSent) {
-          openModal("¡Compra realizada con éxito! Se ha enviado un correo de confirmación.")
+          openModal("¡Compra realizada con éxito! Se ha enviado un correo de confirmación.");
         } else {
-          throw new Error("Failed to send confirmation email")
+          throw new Error("Failed to send confirmation email");
         }
       } catch (error) {
         openModal(
           "La compra se ha realizado, pero hubo un problema al enviar el correo de confirmación. Por favor, contacta al soporte."
-        )
+        );
       } finally {
-        onClose()
+        onClose();
       }
     }
-  }
+  };
 
   const handlePaymentMethodChange = (method) => {
-    setPaymentMethod(method)
-    setShowMercadoPagoButton(method === "mercadopago")
-  }
+    setPaymentMethod(method);
+    setShowMercadoPagoButton(method === "mercadopago");
+  };
 
-  const totalPages = Math.ceil(product.totalTickets / ticketsPerPage)
-  const startTicket = (currentPage - 1) * ticketsPerPage + 1
-  const endTicket = Math.min(currentPage * ticketsPerPage, product.totalTickets)
+  const totalPages = Math.ceil(product.totalTickets / ticketsPerPage);
+  const startTicket = (currentPage - 1) * ticketsPerPage + 1;
+  const endTicket = Math.min(currentPage * ticketsPerPage, product.totalTickets);
 
   const handleTicketSelection = (ticketNumber) => {
     if (selectedTickets.includes(ticketNumber)) {
-      setSelectedTickets(selectedTickets.filter((t) => t !== ticketNumber))
+      setSelectedTickets(selectedTickets.filter((t) => t !== ticketNumber));
     } else {
-      setSelectedTickets([...selectedTickets, ticketNumber])
+      setSelectedTickets([...selectedTickets, ticketNumber]);
     }
-  }
+  };
 
   const renderTicketButtons = () => {
-    const buttons = []
+    const buttons = [];
     for (let i = startTicket; i <= endTicket; i++) {
       buttons.push(
         <button
@@ -256,44 +255,44 @@ Mis datos son:
             soldTickets.includes(i)
               ? "bg-red-300 cursor-not-allowed"
               : isTimeExpired
-                ? "bg-green-100 cursor-not-allowed"
-                : selectedTickets.includes(i)
-                  ? "bg-blue-600 text-white"
-                  : "bg-green-100 hover:bg-blue-100"
+              ? "bg-green-100 cursor-not-allowed"
+              : selectedTickets.includes(i)
+              ? "bg-blue-600 text-white"
+              : "bg-green-100 hover:bg-blue-100"
           }`}
           onClick={() => !isTimeExpired && !soldTickets.includes(i) && handleTicketSelection(i)}
           disabled={isTimeExpired || soldTickets.includes(i)}
         >
           {i}
         </button>
-      )
+      );
     }
-    return buttons
-  }
+    return buttons;
+  };
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === product.images.length - 1 ? 0 : prevIndex + 1))
-  }
+    setCurrentImageIndex((prevIndex) => (prevIndex === product.images.length - 1 ? 0 : prevIndex + 1));
+  };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? product.images.length - 1 : prevIndex - 1))
-  }
+    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? product.images.length - 1 : prevIndex - 1));
+  };
 
   const handleCedulaChange = (e) => {
-    let value = e.target.value.replace(/\D/g, "")
+    let value = e.target.value.replace(/\D/g, "");
     if (value.length > 7) {
-      value = value.slice(0, -1) + "-" + value.slice(-1)
+      value = value.slice(0, -1) + "-" + value.slice(-1);
     }
     if (value.length > 3) {
-      value = value.slice(0, 1) + "." + value.slice(1)
+      value = value.slice(0, 1) + "." + value.slice(1);
     }
     if (value.length > 7) {
-      value = value.slice(0, 5) + "." + value.slice(5)
+      value = value.slice(0, 5) + "." + value.slice(5);
     }
-    setCedula(value)
-  }
+    setCedula(value);
+  };
 
-  const totalAmount = selectedTickets.length * calculatePrice(product.ticketPrice)
+  const totalAmount = selectedTickets.length * calculatePrice(product.ticketPrice);
 
   const renderPaymentDetails = () => {
     switch (paymentMethod) {
@@ -301,23 +300,33 @@ Mis datos son:
         return (
           <div className="bg-gray-100 p-4 rounded-md mt-4">
             <h4 className="font-semibold mb-2">Datos para transferencia Santander:</h4>
-            <p><strong>Titular:</strong> RIFALO S.A.</p>
-            <p><strong>Número de cuenta:</strong> 1234567890</p>
-            <p><strong>Sucursal:</strong> 01</p>
+            <p>
+              <strong>Titular:</strong> RIFALO S.A.
+            </p>
+            <p>
+              <strong>Número de cuenta:</strong> 1234567890
+            </p>
+            <p>
+              <strong>Sucursal:</strong> 01
+            </p>
           </div>
-        )
+        );
       case "prex":
         return (
           <div className="bg-gray-100 p-4 rounded-md mt-4">
             <h4 className="font-semibold mb-2">Datos para transferencia Prex:</h4>
-            <p><strong>Titular:</strong> RIFALO S.A.</p>
-            <p><strong>Número de cuenta:</strong> 0987654321</p>
+            <p>
+              <strong>Titular:</strong> RIFALO S.A.
+            </p>
+            <p>
+              <strong>Número de cuenta:</strong> 0987654321
+            </p>
           </div>
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 overflow-y-auto">
@@ -403,7 +412,7 @@ Mis datos son:
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-            <input
+              <input
                 type="text"
                 placeholder="Nombre"
                 value={name}
@@ -449,6 +458,7 @@ Mis datos son:
                 required
                 disabled={isTimeExpired}
               />
+
               
               <div className="space-y-2">
                 <p className="font-semibold">M&eacute;todo de pago:</p>
