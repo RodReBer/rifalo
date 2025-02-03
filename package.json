@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@mercadopago/sdk-react": "^0.0.23",
     "@react-pdf/renderer": "^4.1.6",
     "date-fns": "^4.1.0",
     "firebase": "^11.2.0",
     "lucide-react": "^0.471.1",
+    "mercadopago": "^2.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",

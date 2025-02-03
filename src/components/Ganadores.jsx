@@ -5,7 +5,7 @@ import { es } from "date-fns/locale"
 import { Ticket } from "lucide-react"
 import { Timestamp } from "firebase/firestore"
 
-export default function Ganadores() {
+const Ganadores=()=> {
   const { products } = useProducts()
 
   const getValidDate = (timestamp) => {
@@ -79,3 +79,5 @@ export default function Ganadores() {
     </div>
   )
 }
+
+export default Ganadores

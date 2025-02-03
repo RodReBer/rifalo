@@ -12,7 +12,7 @@ const WhatsAppIcon = () => (
   </svg>
 )
 
-export default function WhatsAppButton() {
+const WhatsAppButton = () => {
   const phoneNumber = '59899129450' // Reemplaza esto con tu número de WhatsApp
   const message = encodeURIComponent('Hola, me gustaría obtener más información sobre las rifas.')
 
@@ -28,4 +28,4 @@ export default function WhatsAppButton() {
     </a>
   )
 }
-
+export default WhatsAppButton

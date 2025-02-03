@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-const Navbar=()=> {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
 
@@ -33,11 +33,10 @@ const Navbar=()=> {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
-                    isActive(link.path)
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${isActive(link.path)
                       ? 'bg-blue-700 text-white'
                       : 'text-blue-100 hover:bg-blue-500 hover:text-white'
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -68,11 +67,10 @@ const Navbar=()=> {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  isActive(link.path)
+                className={`block px-3 py-2 rounded-md text-base font-medium ${isActive(link.path)
                     ? 'bg-blue-700 text-white'
                     : 'text-blue-100 hover:bg-blue-500 hover:text-white'
-                }`}
+                  }`}
                 onClick={toggleMenu}
               >
                 {link.label}

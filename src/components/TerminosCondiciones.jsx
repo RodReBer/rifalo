@@ -34,7 +34,7 @@ const terminos = [
   },
 ]
 
-const TerminosCondiciones=()=> {
+const TerminosCondiciones = () => {
   return (
 
     <div className="bg-gradient-to-b from-blue-50 to-white py-24">
@@ -44,16 +44,16 @@ const TerminosCondiciones=()=> {
             Términos y Condiciones de RIFALO
           </h2>
           <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
-            En RIFALO, nos comprometemos a ofrecer una experiencia de rifa justa y transparente. 
-            Nuestros t&eacute;rminos y condiciones están diseñados para proteger tanto a los participantes 
+            En RIFALO, nos comprometemos a ofrecer una experiencia de rifa justa y transparente.
+            Nuestros t&eacute;rminos y condiciones están diseñados para proteger tanto a los participantes
             como a nuestra organizaci&oacute;n, asegurando un proceso claro y equitativo para todos.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {terminos.map((termino) => (
-            <div 
-              key={termino.name} 
+            <div
+              key={termino.name}
               className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               <div className="p-6">

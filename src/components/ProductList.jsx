@@ -5,7 +5,7 @@ import Loader from './Loader';
 import { useProducts } from '../contexts/productContext';
 import { Gift, Ticket, Trophy } from 'lucide-react';
 
-const ProductList=()=> {
+const ProductList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { products, loading, error } = useProducts();
 

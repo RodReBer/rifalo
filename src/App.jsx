@@ -10,6 +10,10 @@ import ScrollToTop from './components/ScrollToTop'
 import WhatsAppButton from './components/WhatsAppButton'
 import GeneratorPdf from './components/GeneratorPdf'
 import { ProductProvider } from './contexts/productContext'
+import Failure from './pages/failure.jsx'
+import Success from './pages/success.jsx'
+import Pending from './pages/pending.jsx'
+
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -49,6 +53,9 @@ export default function App() {
               <Route path="/ganadores" element={<Ganadores />} />
               <Route path="/pagos" element={<MediosPago />} />
               <Route path="/generatorpdf" element={<GeneratorPdf />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/failure" element={<Failure />} />
+              <Route path="/pending" element={<Pending />} />
             </Routes>
           </main>
           <Footer />
