@@ -109,21 +109,21 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
 
   const handleMercadoPagoPayment = async (e) => {
     if (e) {
-      e.preventDefault()
-      e.stopPropagation()
+      e.preventDefault();
+      e.stopPropagation();
     }
-    
-    if (isProcessingPayment) return
-    setIsProcessingPayment(true)
+  
+    if (isProcessingPayment) return;
+    setIsProcessingPayment(true);
   
     try {
       if (!isFormComplete) {
-        openModal("Por favor, completa todos los campos del formulario antes de proceder al pago.")
-        return
+        openModal("Por favor, completa todos los campos del formulario antes de proceder al pago.");
+        return;
       }
   
-      const unitPrice = calculatePrice(product.ticketPrice)
-      const totalAmount = selectedTickets.length * unitPrice
+      const unitPrice = calculatePrice(product.ticketPrice);
+      const totalAmount = selectedTickets.length * unitPrice;
   
       const preference = {
         items: [
@@ -145,7 +145,7 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
             number: cedula,
           },
         },
-      }
+      };
   
       const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
         method: "POST",
@@ -154,37 +154,38 @@ const ProductModal = ({ product, onClose, soldTickets }) => {
           Authorization: `Bearer APP_USR-4281791626434269-013116-6607947a5c31cb822e1977eb30cd57e6-200909974`,
         },
         body: JSON.stringify(preference),
-      })
+      });
   
-      const data = await response.json()
+      const data = await response.json();
   
       if (data.id) {
-        window.location.href = data.init_point;        
-        // Enviar correo después de abrir la ventana de pago
-        const ticketNumbers = selectedTickets.join(", ")
-        const emailSent = await sendConfirmationEmail(ticketNumbers)
-        
+        // Enviar correo antes de redirigir
+        const ticketNumbers = selectedTickets.join(", ");
+        const emailSent = await sendConfirmationEmail(ticketNumbers);
+  
         if (emailSent) {
-          openModal("¡Proceso completado! Se ha enviado un correo de confirmación.")
+          openModal("¡Proceso completado! Se ha enviado un correo de confirmación.");
         } else {
-          openModal("Pago realizado pero hubo un error al enviar el correo de confirmación")
+          openModal("Pago realizado pero hubo un error al enviar el correo de confirmación");
         }
-        
+  
+        // Redirigir después de enviar el correo
+        window.location.href = data.init_point;
+  
         // Cerrar el modal principal después de 3 segundos
         setTimeout(() => {
-          onClose()
-        }, 3000)
+          onClose();
+        }, 3000);
       } else {
-        throw new Error("Failed to create preference")
+        throw new Error("Failed to create preference");
       }
     } catch (error) {
-      console.error("Error creating MercadoPago payment link:", error)
-      openModal("Hubo un error al generar el link de pago. Por favor, intenta nuevamente.")
+      console.error("Error creating MercadoPago payment link:", error);
+      openModal("Hubo un error al generar el link de pago. Por favor, intenta nuevamente.");
     } finally {
-      setIsProcessingPayment(false)
+      setIsProcessingPayment(false);
     }
-  }
-
+  };
   const handleSubmit = async (e) => {
     e.preventDefault()
 
