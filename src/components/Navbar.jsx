@@ -21,7 +21,7 @@ const Navbar = () => {
   ]
 
   return (
-    <nav className="bg-blue-600 text-white">
+    <nav className="bg-[#134ECD] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -33,9 +33,9 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${isActive(link.path)
-                      ? 'bg-blue-700 text-white'
-                      : 'text-blue-100 hover:bg-blue-500 hover:text-white'
+                  className={`px-3 py-2 text-sm font-medium transition-colors  duration-300 ${isActive(link.path)
+                      ? ' border-b-2 border-white'
+                      : 'text-white '
                     }`}
                 >
                   {link.label}

@@ -14,6 +14,7 @@ import Failure from './pages/failure.jsx'
 import Success from './pages/success.jsx'
 import Pending from './pages/pending.jsx'
 
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
